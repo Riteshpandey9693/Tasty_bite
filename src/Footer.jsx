@@ -1,102 +1,128 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Youtube,
-  Phone,
-  Mail,
-  MapPin,
-  Clock,
-  ShoppingBag
-} from 'lucide-react';
+  Facebook, Twitter, Instagram, Youtube,
+  Phone, Mail, MapPin, ShoppingBag, ArrowUp,
+} from "lucide-react";
 
 const Footer = () => {
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const footerPosition = document.getElementById("contact")?.offsetTop || 0;
+      setShowBackToTop(scrollPosition >= footerPosition - window.innerHeight);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleBackToTopClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setShowBackToTop(false);
+  };
+
   return (
-    <footer className="bg-gray-900 text-gray-300" id="contact">
-      <div className="section-padding pt-16 pb-8 px-6 md:px-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <footer className="bg-gray-900 text-gray-300 pt-16 pb-8" id="contact">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+          {/* Brand */}
           <div>
             <a href="/" className="flex items-center mb-4">
               <ShoppingBag className="h-8 w-8 text-orange-500" />
-              <span className="ml-2 text-xl font-bold text-white font-poppins">Food<span className="text-orange-500">Plaza</span></span>
+              <span className="ml-2 text-xl font-bold text-white">Tasty<span className="text-orange-500">Bites</span></span>
             </a>
-            <p className="mb-4 text-sm md:text-base">
-              Bringing delicious food to your doorstep. We aim to deliver quality meals with lightning-fast delivery.
-            </p>
-            <div className="flex space-x-4">
-              <a href="#" className="bg-gray-800 p-2 rounded-full hover:bg-orange-500 transition-colors duration-300">
-                <Facebook size={18} />
-              </a>
-              <a href="#" className="bg-gray-800 p-2 rounded-full hover:bg-orange-500 transition-colors duration-300">
-                <Twitter size={18} />
-              </a>
-              <a href="#" className="bg-gray-800 p-2 rounded-full hover:bg-orange-500 transition-colors duration-300">
-                <Instagram size={18} />
-              </a>
-              <a href="#" className="bg-gray-800 p-2 rounded-full hover:bg-orange-500 transition-colors duration-300">
-                <Youtube size={18} />
-              </a>
+            <p className="text-sm">Bringing delicious food to your doorstep. Quality meals with lightning-fast delivery.</p>
+            <div className="flex space-x-4 mt-4">
+              {[Facebook, Twitter, Instagram, Youtube].map((Icon, idx) => (
+                <a key={idx} href="#" className="bg-gray-800 p-2 rounded-full hover:bg-orange-500 transition">
+                  <Icon size={18} />
+                </a>
+              ))}
             </div>
           </div>
 
+          {/* Links */}
           <div>
             <h3 className="text-white text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-sm md:text-base">
-              <li><a href="#" className="hover:text-orange-500 transition-colors duration-200">Home</a></li>
-              <li><a href="#menu" className="hover:text-orange-500 transition-colors duration-200">Menu</a></li>
-              <li><a href="#about" className="hover:text-orange-500 transition-colors duration-200">About Us</a></li>
-              <li><a href="#" className="hover:text-orange-500 transition-colors duration-200">Offers</a></li>
-              <li><a href="#contact" className="hover:text-orange-500 transition-colors duration-200">Contact</a></li>
+            <ul className="space-y-2 text-sm">
+              {["Home", "Menu", "About Us", "Offers", "Contact"].map((link, idx) => (
+                <li key={idx}>
+                  <a href={`#${link.toLowerCase().replace(/\s/g, "")}`} className="hover:text-orange-500">{link}</a>
+                </li>
+              ))}
             </ul>
           </div>
 
+          {/* App Download */}
           <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Opening Hours</h3>
-            <ul className="space-y-2 text-sm md:text-base">
-              <li className="flex items-center">
-                <Clock className="h-4 w-4 mr-2 text-orange-500" />
-                Mon - Fri: 8am - 10pm
-              </li>
-              <li className="flex items-center">
-                <Clock className="h-4 w-4 mr-2 text-orange-500" />
-                Saturday: 9am - 11pm
-              </li>
-              <li className="flex items-center">
-                <Clock className="h-4 w-4 mr-2 text-orange-500" />
-                Sunday: 10am - 9pm
-              </li>
-            </ul>
+            <h3 className="text-white text-lg font-semibold mb-4">Get the App</h3>
+            <p className="mb-4 text-sm">Order food anytime, anywhere. Download the app now!</p>
+            <a href="#" className="inline-block">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get App" className="h-10" />
+            </a>
           </div>
 
+          {/* Contact Info */}
           <div>
             <h3 className="text-white text-lg font-semibold mb-4">Contact Us</h3>
-            <ul className="space-y-3 text-sm md:text-base">
+            <ul className="space-y-3 text-sm">
               <li className="flex items-start">
-                <MapPin className="h-5 w-5 mr-2 mt-0.5 text-orange-500" />
-                <span>123 Food Street, Tasty City, Delicious Country</span>
+                <MapPin className="w-5 h-5 text-orange-500 mr-2" />
+                <span>123 Food Street, Tasty City</span>
               </li>
               <li className="flex items-center">
-                <Phone className="h-5 w-5 mr-2 text-orange-500" />
-                <a href="tel:+1234567890" className="hover:text-orange-500">+123 456 7890</a>
+                <Phone className="w-5 h-5 text-orange-500 mr-2" />
+                <a href="tel:+1234567890">+123 456 7890</a>
               </li>
               <li className="flex items-center">
-                <Mail className="h-5 w-5 mr-2 text-orange-500" />
-                <a href="mailto:info@foodplaza.com" className="hover:text-orange-500">info@foodplaza.com</a>
+                <Mail className="w-5 h-5 text-orange-500 mr-2" />
+                <a href="mailto:info@tastybites.com">info@tastybites.com</a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-6 text-sm text-center md:flex md:justify-between md:text-left">
-          <p>&copy; {new Date().getFullYear()} FoodPlaza. Created with ❤️ by Ritesh</p>
-          <div className="mt-2 md:mt-0">
-            <a href="#" className="hover:text-orange-500 transition-colors duration-200 mr-4">Privacy Policy</a>
-            <a href="#" className="hover:text-orange-500 transition-colors duration-200 mr-4">Terms of Service</a>
-            <a href="#" className="hover:text-orange-500 transition-colors duration-200">Cookies</a>
+        {/* Newsletter */}
+        <div className="mt-12 text-center">
+          <h3 className="text-white text-lg font-semibold mb-4">Subscribe to Our Newsletter</h3>
+          <form className="flex flex-col sm:flex-row justify-center items-center gap-3">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="px-4 py-2 rounded-lg bg-gray-800 text-gray-300 placeholder-gray-500 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+            />
+            <button
+              type="submit"
+              className="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
+
+        {/* Bottom */}
+        <div className="mt-12 pt-6 border-t border-gray-800 text-sm flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-3">
+          <p>&copy; {new Date().getFullYear()} Tasty Bites. Created with ❤️ by Ritesh</p>
+          <div className="space-x-4">
+            <a href="#" className="hover:text-orange-500">Privacy Policy</a>
+            <a href="#" className="hover:text-orange-500">Terms of Service</a>
+            <a href="#" className="hover:text-orange-500">Cookies</a>
           </div>
         </div>
       </div>
+
+      {/* Back to Top */}
+      {showBackToTop && (
+        <button
+          onClick={handleBackToTopClick}
+          className="fixed bottom-6 right-6 bg-orange-500 text-white p-4 rounded-full shadow-lg hover:bg-orange-600 transition"
+          aria-label="Back to Top"
+        >
+          <ArrowUp size={24} />
+        </button>
+      )}
     </footer>
   );
 };

@@ -1,4 +1,4 @@
-import { lazy, Suspense, StrictMode } from 'react';
+import { Suspense, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
@@ -13,7 +13,6 @@ import appStore from './utils/appStore.js';
 import Cart from './Cart.jsx';
 import RestaurantCollectionsInfo from './RestaurantCollectionsInfo.jsx'; // <-- ✅ new import
 
-const Grocery = lazy(() => import('./Grocery.jsx'));
 
 const appRouter = createBrowserRouter([
   {
@@ -32,14 +31,6 @@ const appRouter = createBrowserRouter([
       {
         path: 'contact',
         element: <Contact />,
-      },
-      {
-        path: 'grocery',
-        element: (
-          <Suspense fallback={<h2>Loading Grocery...</h2>}>
-            <Grocery />
-          </Suspense>
-        ),
       },
       {
         path: 'cart',

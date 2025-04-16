@@ -1,6 +1,6 @@
 import RestaurantCollections from "./RestaurantCollections";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const RestaurantCollectionsInfo = ({ collectionData }) => {
   const scrollRef = useRef();
@@ -24,24 +24,22 @@ const RestaurantCollectionsInfo = ({ collectionData }) => {
   }
 
   return (
-    <div className="px-4 mt-6 relative">
-      <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-        What's on your mind?
-      </h2>
+    <div className="px-4 sm:px-8 mt-6 relative">
+      <h2 className="text-xl sm:text-2xl font-semibold mb-6">What's on your mind?</h2>
 
       <div className="relative">
         {/* Left Arrow */}
         <button
           onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white shadow-md rounded-full hover:bg-gray-100"
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-3 rounded-full shadow-lg hover:bg-gray-100"
         >
-          <ChevronLeft size={24} />
+          <FaChevronLeft size={16} />
         </button>
 
-        {/* Scrollable Collection List */}
+        {/* Scrollable Collection */}
         <div
           ref={scrollRef}
-          className="flex overflow-x-auto no-scrollbar scroll-smooth px-10"
+          className="flex gap-4 overflow-x-auto no-scrollbar px-10 sm:px-14"
         >
           {collectionData.map((item) => (
             <RestaurantCollections
@@ -55,9 +53,9 @@ const RestaurantCollectionsInfo = ({ collectionData }) => {
         {/* Right Arrow */}
         <button
           onClick={() => scroll("right")}
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white shadow-md rounded-full hover:bg-gray-100"
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-3 rounded-full shadow-lg hover:bg-gray-100"
         >
-          <ChevronRight size={24} />
+          <FaChevronRight size={16} />
         </button>
       </div>
     </div>

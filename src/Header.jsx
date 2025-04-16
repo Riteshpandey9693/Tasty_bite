@@ -1,76 +1,111 @@
-import { useContext, useState } from "react";
-import { LOGO_URL } from "./utils/constants";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import useOnlineStatus from "./utils/useOnlineStatus";
-import UserContext from "./utils/UserContext";
 import { useSelector } from "react-redux";
-import { FaHome, FaInfoCircle, FaPhoneAlt, FaShoppingCart, FaUserCircle, FaStore } from "react-icons/fa";
+import {
+  FaHome, FaInfoCircle, FaPhoneAlt, FaShoppingCart,
+  FaUserCircle, FaMoon, FaSun, FaBars, FaTimes,
+} from "react-icons/fa";
+import { LOGO_URL } from "./utils/constants";
+import useOnlineStatus from "./utils/useOnlineStatus";
 
 const Header = () => {
-    const [btnName, setBtnName] = useState("Login");
-    const onlineStatus = useOnlineStatus();
-    const { loggedInuser } = useContext(UserContext);
+  const onlineStatus = useOnlineStatus();
+  const cartItems = useSelector((store) => store.cart.items);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-    // Subscribing to the store using a Selector.
-    const cartItems = useSelector((store) => store.cart.items);
+  const toggleLogin = () => setIsLoggedIn(!isLoggedIn);
+  const toggleDarkMode = () => setDarkMode(!darkMode);
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
-    return (
-        <header className="bg-white shadow-md sticky top-0 z-50">
-            <div className="flex justify-between items-center px-6 py-4 bg-gradient-to-r from-orange-400 to-yellow-500 shadow-lg">
-                {/* Logo Section */}
-                <div className="flex items-center">
-                    <img className="h-16 w-16 rounded-full shadow-md" src={LOGO_URL} alt="Logo" />
-                    <h1 className="text-2xl font-bold text-white ml-4">Foodie</h1>
-                </div>
+  return (
+    <header className={`${darkMode ? "bg-gray-900 text-white" : "bg-white text-black"} shadow-md sticky top-0 z-50 transition-colors duration-300`}>
+      <div className={`flex justify-between items-center px-4 py-3 md:px-8 ${darkMode ? "bg-gray-800" : "bg-gradient-to-r from-orange-400 to-yellow-500"} shadow-lg`}>
+        
+        {/* Logo */}
+        <Link to="/" className="flex items-center">
+          <img className="h-10 w-10 md:h-14 md:w-14 rounded-full shadow-md" src={LOGO_URL} alt="Tasty Bites Logo" />
+          <span className="ml-3 text-lg md:text-2xl font-bold text-white">Tasty Bites</span>
+        </Link>
 
-                {/* Navigation Links */}
-                <nav>
-                    <ul className="flex space-x-6 text-white font-semibold text-lg">
-                        <li className="flex items-center">
-                            <span className="mr-1">Status:</span>
-                            <span className={`text-lg ${onlineStatus ? "text-green-400" : "text-red-500"}`}>
-                                {onlineStatus ? "🟢 Online" : "🔴 Offline"}
-                            </span>
-                        </li>
-                        <li className="hover:scale-105 transition-transform flex items-center">
-                            <FaHome className="mr-2" />
-                            <Link to="/" className="hover:text-yellow-300">Home</Link>
-                        </li>
-                        <li className="hover:scale-105 transition-transform flex items-center">
-                            <FaInfoCircle className="mr-2" />
-                            <Link to="/about" className="hover:text-yellow-300">About Us</Link>
-                        </li>
-                        <li className="hover:scale-105 transition-transform flex items-center">
-                            <FaPhoneAlt className="mr-2" />
-                            <Link to="/contact" className="hover:text-yellow-300">Contact Us</Link>
-                        </li>
-                        <li className="hover:scale-105 transition-transform flex items-center">
-                            <FaStore className="mr-2" />
-                            <Link to="/grocery" className="hover:text-yellow-300">Grocery</Link>
-                        </li>
-                        <li className="hover:scale-105 transition-transform flex items-center">
-                            <FaShoppingCart className="mr-2" />
-                            <Link to="/cart" className="hover:text-yellow-300">Cart - {cartItems.length}</Link>
-                        </li>
-                    </ul>
-                </nav>
+        {/* Hamburger Toggle */}
+        <button
+          className="text-white text-2xl md:hidden"
+          onClick={toggleMenu}
+          aria-label="Toggle Menu"
+        >
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </button>
 
-                {/* Login Button */}
-                <div className="flex items-center space-x-4">
-                    <button
-                        className="px-4 py-2 bg-white text-orange-500 font-bold rounded-lg shadow-md transition-all duration-300 hover:bg-yellow-300 hover:text-black"
-                        onClick={() => setBtnName(btnName === "Login" ? "Logout" : "Login")}
-                    >
-                        {btnName}
-                    </button>
-                    <div className="flex items-center text-white">
-                        <FaUserCircle className="text-2xl mr-2" />
-                        <span>{loggedInuser.name}</span>
-                    </div>
-                </div>
-            </div>
-        </header>
-    );
+        {/* Nav Items */}
+        <nav className={`${menuOpen ? "block" : "hidden"} absolute top-full left-0 w-full bg-gradient-to-br px-4 py-4 md:static md:flex md:w-auto md:bg-transparent md:p-0 md:space-x-6 z-40`}>
+          <ul className="flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-6 text-white font-semibold text-sm md:text-base">
+            <li className="flex items-center">
+              <span>Status:</span>
+              <span className={`ml-1 text-lg ${onlineStatus ? "text-green-400" : "text-red-500"}`}>
+                {onlineStatus ? "🟢" : "🔴"}
+              </span>
+            </li>
+            <li className="flex items-center hover:text-yellow-200 transition">
+              <FaHome className="mr-1" />
+              <Link to="/">Home</Link>
+            </li>
+            <li className="flex items-center hover:text-yellow-200 transition">
+              <FaInfoCircle className="mr-1" />
+              <Link to="/about">About Us</Link>
+            </li>
+            <li className="flex items-center hover:text-yellow-200 transition">
+              <FaPhoneAlt className="mr-1" />
+              <Link to="/contact">Contact</Link>
+            </li>
+            <li className="flex items-center hover:text-yellow-200 transition">
+              <FaShoppingCart className="mr-1" />
+              <Link to="/cart">Cart - {cartItems.length}</Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* Right Side: Dark Mode & Auth */}
+        <div className="hidden md:flex items-center space-x-6">
+          <button
+            onClick={toggleDarkMode}
+            className="text-white hover:text-yellow-300 transition"
+            title="Toggle Dark Mode"
+          >
+            {darkMode ? <FaSun size={22} /> : <FaMoon size={22} />}
+          </button>
+
+          <div className="flex items-center space-x-2 cursor-pointer group">
+            <FaUserCircle className="text-white text-2xl" />
+            <span
+              onClick={toggleLogin}
+              className="text-white font-semibold hover:text-yellow-300 transition"
+            >
+              {isLoggedIn ? "Logout" : "Sign In"}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Profile & Dark Mode Toggle */}
+      {menuOpen && (
+        <div className="flex flex-col md:hidden items-start px-4 py-2 space-y-4 bg-gradient-to-br from-orange-400 to-yellow-400 text-white">
+          <button
+            onClick={toggleDarkMode}
+            className="flex items-center space-x-2"
+          >
+            {darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
+            <span>{darkMode ? "Light Mode" : "Dark Mode"}</span>
+          </button>
+          <div className="flex items-center space-x-2" onClick={toggleLogin}>
+            <FaUserCircle className="text-xl" />
+            <span>{isLoggedIn ? "Logout" : "Sign In"}</span>
+          </div>
+        </div>
+      )}
+    </header>
+  );
 };
 
 export default Header;

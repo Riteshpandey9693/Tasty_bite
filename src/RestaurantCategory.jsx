@@ -7,25 +7,25 @@ const RestaurantCategory = ({ category }) => {
   const dispatch = useDispatch();
 
   const handleAddItems = (item) => {
-    dispatch(addItem(item)); // Pass actual item instead of hardcoded "pizza"
+    dispatch(addItem(item));
   };
 
   return (
-    <div className="p-4 border-2 border-gray-300 rounded-2xl shadow-md mb-4 bg-white max-w-3xl mx-auto">
-      {/* Category Header (Accordion Toggle) */}
+    <div className="p-4 border border-gray-300 rounded-2xl shadow-sm mb-6 bg-white max-w-3xl mx-auto w-full">
+      {/* Accordion Toggle Header */}
       <div
-        className="flex justify-between items-center cursor-pointer pb-2 border-b-2"
+        className="flex justify-between items-center cursor-pointer pb-3 border-b"
         onClick={() => setShowItems(!showItems)}
       >
-        <h2 className="text-xl font-bold text-gray-800">
+        <h2 className="text-xl font-semibold text-gray-800">
           {category.title} ({category.itemCards.length})
         </h2>
         <span className="text-gray-600 text-lg">{showItems ? "▲" : "▼"}</span>
       </div>
 
-      {/* Menu Items (Shown when showItems is true) */}
+      {/* Menu Items */}
       {showItems && (
-        <ul className="mt-2">
+        <ul className="mt-3 space-y-3">
           {category?.itemCards?.map((item) => {
             const { id, name, defaultPrice, price, description, imageId } =
               item?.card?.info || {};
@@ -33,39 +33,43 @@ const RestaurantCategory = ({ category }) => {
             return (
               <li
                 key={id}
-                className="flex items-center justify-between border-b-2 p-4 rounded-lg bg-gray-100 shadow-sm hover:bg-gray-200 transition relative w-full"
+                className="flex flex-col sm:flex-row justify-between gap-4 border border-gray-200 p-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition w-full"
               >
-                {/* Content on the left */}
+                {/* Left Content */}
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-lg font-semibold">{name}</h3>
-                  <p className="text-gray-600">₹{(defaultPrice || price) / 100}</p>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-1">{name}</h3>
+                  <p className="text-gray-700 font-medium mb-1">
+                    ₹{(defaultPrice || price) / 100}
+                  </p>
 
-                  {/* Description with hover effect */}
-                  <div className="relative w-2xl">
-                    <p className="text-gray-500 overflow-hidden h-6 hover:h-auto hover:overflow-visible hover:whitespace-normal transition-all">
+                  {/* Description with ... and hover expand */}
+                  <div className="relative group w-full">
+                    <p
+                      className="text-gray-500 text-sm line-clamp-1 group-hover:line-clamp-none group-hover:whitespace-normal transition-all duration-300"
+                      title={description}
+                    >
                       {description}
                     </p>
                   </div>
                 </div>
 
-                {/* Image & Button on the right */}
+                {/* Right Content: Image + Button */}
                 {imageId && (
-                  <div className="flex flex-col items-center p-4">
-                    <img
-                      className="h-25 w-25 rounded-lg object-cover border-2 border-gray-300"
-                      src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,e_color,c_fill/${imageId}`}
-                      alt={name}
-                    />
-                    <div className="absolute">
-                      <button
-                        className="mt-2 px-4 py-1 bg-black text-white rounded-lg"
-                        onClick={() => handleAddItems(item)} // Corrected onClick handler
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                )}
+  <div className="relative w-28 h-28">
+    <img
+      className="w-full h-full rounded-lg object-cover border border-gray-300"
+      src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,e_color,c_fill/${imageId}`}
+      alt={name}
+    />
+    <button
+      className="absolute left-1/2 bottom-[-7px] transform -translate-x-1/2 px-5 py-1 bg-black text-white rounded-md font-medium text-sm hover:bg-gray-800 transition"
+      onClick={() => handleAddItems(item)}
+    >
+      Add
+    </button>
+  </div>
+)}
+
               </li>
             );
           })}
