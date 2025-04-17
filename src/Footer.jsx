@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
 import {
-  Facebook, Twitter, Instagram, Youtube,
-  Phone, Mail, MapPin, ShoppingBag, ArrowUp,
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Phone,
+  Mail,
+  MapPin,
+  ShoppingBag,
+  ArrowUp,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -29,47 +37,89 @@ const Footer = () => {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <a href="/" className="flex items-center mb-4">
+            <Link to="/" className="flex items-center mb-4">
               <ShoppingBag className="h-8 w-8 text-orange-500" />
-              <span className="ml-2 text-xl font-bold text-white">Tasty<span className="text-orange-500">Bites</span></span>
-            </a>
-            <p className="text-sm">Bringing delicious food to your doorstep. Quality meals with lightning-fast delivery.</p>
+              <span className="ml-2 text-xl font-bold text-white">
+                Tasty<span className="text-orange-500">Bites</span>
+              </span>
+            </Link>
+            <p className="text-sm">
+              Bringing delicious food to your doorstep. Quality meals with
+              lightning-fast delivery.
+            </p>
             <div className="flex space-x-4 mt-4">
               {[Facebook, Twitter, Instagram, Youtube].map((Icon, idx) => (
-                <a key={idx} href="#" className="bg-gray-800 p-2 rounded-full hover:bg-orange-500 transition">
+                <a
+                  key={idx}
+                  href="#"
+                  aria-label={Icon.name}
+                  className="bg-gray-800 p-2 rounded-full hover:bg-orange-500 transition"
+                >
                   <Icon size={18} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Links */}
+          {/* Quick Links */}
           <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-white text-lg font-semibold mb-4">
+              Quick Links
+            </h3>
             <ul className="space-y-2 text-sm">
-              {["Home", "Menu", "About Us", "Offers", "Contact"].map((link, idx) => (
-                <li key={idx}>
-                  <a href={`#${link.toLowerCase().replace(/\s/g, "")}`} className="hover:text-orange-500">{link}</a>
-                </li>
-              ))}
+              <li>
+                <Link to="/" className="hover:text-orange-500 transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <a href="#menu" className="hover:text-orange-500 transition-colors">
+                  Menu
+                </a>
+              </li>
+              <li>
+                <Link to="/about" className="hover:text-orange-500 transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <a href="#offers" className="hover:text-orange-500 transition-colors">
+                  Offers
+                </a>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-orange-500 transition-colors">
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
 
           {/* App Download */}
           <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Get the App</h3>
-            <p className="mb-4 text-sm">Order food anytime, anywhere. Download the app now!</p>
-            <a href="#" className="inline-block">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get App" className="h-10" />
+            <h3 className="text-white text-lg font-semibold mb-4">
+              Get the App
+            </h3>
+            <p className="mb-4 text-sm">
+              Order food anytime, anywhere. Download the app now!
+            </p>
+            <a href="#" className="inline-block" aria-label="Download App">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                alt="Download on Google Play"
+                className="h-10"
+              />
             </a>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Contact Us</h3>
+            <h3 className="text-white text-lg font-semibold mb-4">
+              Contact Us
+            </h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start">
-                <MapPin className="w-5 h-5 text-orange-500 mr-2" />
+                <MapPin className="w-5 h-5 text-orange-500 mr-2 mt-1" />
                 <span>123 Food Street, Tasty City</span>
               </li>
               <li className="flex items-center">
@@ -86,12 +136,18 @@ const Footer = () => {
 
         {/* Newsletter */}
         <div className="mt-12 text-center">
-          <h3 className="text-white text-lg font-semibold mb-4">Subscribe to Our Newsletter</h3>
-          <form className="flex flex-col sm:flex-row justify-center items-center gap-3">
+          <h3 className="text-white text-lg font-semibold mb-4">
+            Subscribe to Our Newsletter
+          </h3>
+          <form
+            className="flex flex-col sm:flex-row justify-center items-center gap-3"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <input
               type="email"
               placeholder="Enter your email"
               className="px-4 py-2 rounded-lg bg-gray-800 text-gray-300 placeholder-gray-500 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+              required
             />
             <button
               type="submit"
@@ -102,13 +158,22 @@ const Footer = () => {
           </form>
         </div>
 
-        {/* Bottom */}
+        {/* Footer Bottom */}
         <div className="mt-12 pt-6 border-t border-gray-800 text-sm flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-3">
-          <p>&copy; {new Date().getFullYear()} Tasty Bites. Created with ❤️ by Ritesh</p>
+          <p>
+            &copy; {new Date().getFullYear()} Tasty Bites. Created with ❤️ by{" "}
+            <span className="font-semibold text-orange-500">Ritesh Pandey</span>
+          </p>
           <div className="space-x-4">
-            <a href="#" className="hover:text-orange-500">Privacy Policy</a>
-            <a href="#" className="hover:text-orange-500">Terms of Service</a>
-            <a href="#" className="hover:text-orange-500">Cookies</a>
+            <a href="#" className="hover:text-orange-500 transition">
+              Privacy Policy
+            </a>
+            <a href="#" className="hover:text-orange-500 transition">
+              Terms of Service
+            </a>
+            <a href="#" className="hover:text-orange-500 transition">
+              Cookies
+            </a>
           </div>
         </div>
       </div>

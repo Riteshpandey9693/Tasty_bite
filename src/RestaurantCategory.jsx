@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addItem } from "./utils/cartSlice";
 
-const RestaurantCategory = ({ category }) => {
+const RestaurantCategory = ({ category, onAddToCart }) => {
   const [showItems, setShowItems] = useState(false);
   const dispatch = useDispatch();
 
-  const handleAddItems = (item) => {
+  const handleAddItem = (item) => {
     dispatch(addItem(item));
+    if (onAddToCart) onAddToCart(); // Trigger the popup
   };
 
   return (
@@ -63,7 +64,7 @@ const RestaurantCategory = ({ category }) => {
     />
     <button
       className="absolute left-1/2 bottom-[-7px] transform -translate-x-1/2 px-5 py-1 bg-black text-white rounded-md font-medium text-sm hover:bg-gray-800 transition"
-      onClick={() => handleAddItems(item)}
+      onClick={() => handleAddItem(item)}
     >
       Add
     </button>

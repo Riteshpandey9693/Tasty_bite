@@ -1,15 +1,43 @@
 import React from "react";
-import { GraduationCap, Code, Star, Sparkles, User } from "lucide-react";
+import {
+  GraduationCap,
+  Code,
+  Star,
+  Sparkles,
+  User,
+  ArrowLeftCircle,
+} from "lucide-react";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-white px-4 py-12 md:px-20">
-      <div className="max-w-5xl mx-auto bg-gradient-to-br from-yellow-50 via-white to-orange-50 p-10 rounded-2xl shadow-xl">
+    <div
+      className="min-h-screen bg-cover bg-center px-4 py-12 md:px-20"
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=1950&q=80')",
+      }}
+    >
+      <div className="max-w-5xl mx-auto bg-white/80 backdrop-blur-md p-10 rounded-2xl shadow-xl">
 
-        {/* About Us */}
-        <h1 className="text-4xl font-bold text-orange-600 mb-6 text-center">About Us</h1>
+        {/* Back Button */}
+        <div className="mb-4">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-orange-500 hover:text-orange-600 transition"
+          >
+            <ArrowLeftCircle size={20} /> Back to Home
+          </Link>
+        </div>
+
+        {/* About Me */}
+        <h1 className="text-4xl font-bold text-orange-600 mb-6 text-center">
+          About Me
+        </h1>
         <p className="text-lg text-gray-700 mb-10 leading-relaxed text-center">
-          Welcome to our space! We specialize in building interactive, scalable, and high-performance web applications. Our mission is to deliver modern and responsive solutions that are as functional as they are beautiful. With a focus on clean code and user-first design, we turn ideas into digital reality.
+          Welcome to my world! I specialize in building interactive, scalable,
+          and high-performance web applications. With a focus on clean code and
+          user-first design, I turn ideas into digital reality.
         </p>
 
         {/* My Profile */}
@@ -18,9 +46,10 @@ const About = () => {
         </h1>
 
         <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-          👋 Hi, I'm <span className="font-semibold text-orange-600">Ritesh Pandey</span>, a passionate
-          <span className="font-semibold text-orange-500"> Frontend Developer</span> who loves crafting beautiful, responsive,
-          and performance-optimized websites. I believe in continuous learning, clean code, and pixel-perfect design.
+          👋 Hi, I'm{" "}
+          <span className="font-semibold text-orange-600">Ritesh Pandey</span>, a passionate
+          <span className="font-semibold text-orange-500"> Frontend Developer</span> who loves
+          crafting beautiful, responsive, and performance-optimized websites.
         </p>
 
         <div className="grid md:grid-cols-2 gap-10">
@@ -30,9 +59,11 @@ const About = () => {
               <GraduationCap /> Education
             </h2>
             <div className="bg-white border border-orange-200 p-4 rounded-lg shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-800">BSc, Veer Kuwar Singh University</h3>
-              <p className="text-gray-600 text-sm">Graduated: 2024</p>
-              <p className="text-gray-600 text-sm mt-1">Major: Computer Science</p>
+              <h3 className="text-lg font-semibold text-gray-800">
+                MCA, Veer Kuwar Singh University
+              </h3>
+              <p className="text-gray-600 text-sm">Duration: 2024 - 2026</p>
+              <p className="text-gray-600 text-sm mt-1">Major: Computer Applications</p>
             </div>
           </div>
 
@@ -74,6 +105,31 @@ const About = () => {
             <li>Fullstack Development - Delta Certificate</li>
           </ul>
         </div>
+        {/* Services */}
+<div className="mt-10">
+  <h2 className="flex items-center gap-2 text-2xl font-semibold text-orange-500">
+    <Code /> Services
+  </h2>
+  <ul className="grid md:grid-cols-2 gap-4 mt-4 text-gray-700">
+    <li className="bg-white border border-orange-200 p-4 rounded-lg shadow-sm">
+      <h3 className="text-lg font-semibold mb-2">Frontend Development</h3>
+      <p className="text-sm">Building responsive, accessible, and visually appealing websites using React, HTML, CSS, and JavaScript.</p>
+    </li>
+    <li className="bg-white border border-orange-200 p-4 rounded-lg shadow-sm">
+      <h3 className="text-lg font-semibold mb-2">UI/UX Optimization</h3>
+      <p className="text-sm">Designing clean user interfaces and enhancing user experience for better engagement.</p>
+    </li>
+    <li className="bg-white border border-orange-200 p-4 rounded-lg shadow-sm">
+      <h3 className="text-lg font-semibold mb-2">Fullstack Projects</h3>
+      <p className="text-sm">Creating complete web solutions using React.js, Node.js, MongoDB, and RESTful APIs.</p>
+    </li>
+    <li className="bg-white border border-orange-200 p-4 rounded-lg shadow-sm">
+      <h3 className="text-lg font-semibold mb-2">Version Control</h3>
+      <p className="text-sm">Collaborating on projects using Git and GitHub, ensuring code quality and history tracking.</p>
+    </li>
+  </ul>
+</div>
+
       </div>
     </div>
   );
