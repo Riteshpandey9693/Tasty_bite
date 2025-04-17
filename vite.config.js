@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: process.env.VITE_BASE_PATH || "/Tasty_bite", // Default to root if VITE_BASE_PATH is not set
+  base: process.env.VITE_BASE_PATH || "/", // Default to root if VITE_BASE_PATH is not set
 })
