@@ -1,5 +1,3 @@
-
-````markdown
 # 🍔 Tasty_Bite – Food Delivery App
 
 Welcome to **Tasty_Bite**, a modern food delivery web app built to elevate your dining experience. With a sleek user interface, fast performance, and real-time data powered by the **Swiggy API**, this project delivers a seamless ordering experience from your favorite restaurants.
@@ -23,14 +21,14 @@ Welcome to **Tasty_Bite**, a modern food delivery web app built to elevate your 
 
 ## 🛠️ Tech Stack
 
-- **React** – UI library for building dynamic interfaces
-- **Vite** – Blazing-fast build tool and development environment
-- **Redux Toolkit** – Efficient and scalable state management
-- **React Redux** – React bindings for Redux
-- **React Router** – Declarative routing for SPA navigation
-- **Formik** – Simplified form handling and validation
-- **React Hot Toast** – Customizable toast notifications
-- **Babel** – JavaScript compiler for ES6+ compatibility
+- **React** – UI library for building dynamic interfaces  
+- **Vite** – Blazing-fast build tool and development environment  
+- **Redux Toolkit** – Efficient and scalable state management  
+- **React Redux** – React bindings for Redux  
+- **React Router** – Declarative routing for SPA navigation  
+- **Formik** – Simplified form handling and validation  
+- **React Hot Toast** – Customizable toast notifications  
+- **Babel** – JavaScript compiler for ES6+ compatibility  
 
 ---
 
@@ -58,8 +56,6 @@ npm run dev
 ```
 
 ### 4. Open in Your Browser
-
-Navigate to:
 
 ```
 http://localhost:5173
@@ -102,4 +98,4 @@ Feel free to **open an issue**, **fork the repo**, or **connect with me on Linke
 
 ---
 
-**Made with ❤️ using React, Vite, Redux Toolkit, and passion for great UI/UX.**
+**Made with ❤️ using React, Vite, Redux Toolkit, and a love for clean UI/UX.**
